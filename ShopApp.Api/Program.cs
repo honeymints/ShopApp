@@ -1,6 +1,7 @@
 using ShopApp.Application;
 using ShopApp.Application.Services.Authentication;
 using ShopApp.Infrastructure;
+using ShopApp.Infrastructure.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,11 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddApplication()
-    .AddInfrastructure();
+    .AddInfrastructure(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 
 var app = builder.Build();
 
