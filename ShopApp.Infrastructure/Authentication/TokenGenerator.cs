@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ShopApp.Application.Common.Services;
 using ShopApp.Application.Interfaces;
+using ShopApp.Domain;
 
 namespace ShopApp.Infrastructure.Authentication;
 
@@ -17,7 +18,7 @@ public class TokenGenerator : ITokenGenerator
         _jwtSettings = jwtSettings.Value;
         _dateTimeProvider = dateTimeProvider;
     }
-    public string GenerateToken(Guid userId, string email)
+    public string GenerateToken(User user)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
 
@@ -25,8 +26,8 @@ public class TokenGenerator : ITokenGenerator
 
         var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.Email, email),
-            new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
         };
 
         var token = new JwtSecurityToken(

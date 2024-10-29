@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShopApp.Application.Common.Services;
 using ShopApp.Application.Interfaces;
+using ShopApp.Application.Persistence;
 using ShopApp.Infrastructure.Authentication;
 using ShopApp.Infrastructure.Services;
 
@@ -15,6 +16,7 @@ public static class DependencyInjection {
         services.Configure<JwtSettings>(configurationManager.GetSection(JwtSettings.SectionName));
         services.AddSingleton<ITokenGenerator, TokenGenerator>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.AddScoped<IUserRepository, UserRepository>();
         
         return services;
     }
