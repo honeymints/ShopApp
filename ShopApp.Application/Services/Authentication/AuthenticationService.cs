@@ -35,6 +35,7 @@ public class AuthenticationService : IAuthenticationService
         {
             throw new Exception("User already exists!");
         }
+        
         var user = new User
         {
             Email = email,
@@ -44,6 +45,7 @@ public class AuthenticationService : IAuthenticationService
         };
             
         _userRepository.InsertUser(user);
+        _userRepository.Save();
         var token = _tokenGenerator.GenerateToken(user);
             
         return new AuthenticationResult(
