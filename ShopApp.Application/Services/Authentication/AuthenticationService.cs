@@ -1,3 +1,4 @@
+using ShopApp.Application.Common.Services;
 using ShopApp.Application.Interfaces;
 using ShopApp.Application.Persistence;
 using ShopApp.Domain;
@@ -17,9 +18,15 @@ public class AuthenticationService : IAuthenticationService
     public AuthenticationResult Login(string email, string password)
     {
         var user = _userRepository.GetUserByEmail(email);
+        
         if (user is null)
         {
             throw new Exception("no such user exist with given email");
+        }
+        
+        if (!PasswordHasher.VerifyHashedPassword(password, user.Password))
+        {
+            throw new Exception("incorrect password!");
         }
         
         var token = _tokenGenerator.GenerateToken(user);
@@ -41,7 +48,7 @@ public class AuthenticationService : IAuthenticationService
             Email = email,
             Name = name,
             LastName = lastName,
-            Password = password,
+            Password = PasswordHasher.HashPassword(password),
         };
             
         _userRepository.InsertUser(user);

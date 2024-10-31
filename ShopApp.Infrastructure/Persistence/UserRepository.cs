@@ -10,7 +10,7 @@ public class UserRepository : IUserRepository
 
     public UserRepository(AppDbContext context)
     {
-        _context =context;
+        _context = context;
     }
     public User? GetUserById(Guid userId)
     {
@@ -39,6 +39,7 @@ public class UserRepository : IUserRepository
 
     public void DeleteUser(Guid userId)
     {
-        
+        var user = GetUserById(userId);
+        _context.Users.Remove(user);
     }
 }

@@ -1,3 +1,4 @@
+using Serilog;
 using ShopApp.Application;
 using ShopApp.Application.Services.Authentication;
 using ShopApp.Infrastructure;
@@ -15,7 +16,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
-builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 var app = builder.Build();
 
@@ -24,6 +26,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseSerilogRequestLogging();
+
 app.UseAuthorization();
 
 app.MapControllers();

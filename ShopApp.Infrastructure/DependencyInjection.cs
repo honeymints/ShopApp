@@ -16,7 +16,8 @@ public static class DependencyInjection {
         ConfigurationManager configurationManager)
     {
         services.Configure<JwtSettings>(configurationManager.GetSection(JwtSettings.SectionName));
-        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configurationManager.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<AppDbContext>(options => 
+            options.UseNpgsql(configurationManager.GetConnectionString("DefaultConnection")));
         
         services.AddSingleton<ITokenGenerator, TokenGenerator>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
