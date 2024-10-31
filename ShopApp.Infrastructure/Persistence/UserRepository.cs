@@ -2,19 +2,15 @@ using ShopApp.Application.Persistence;
 using ShopApp.Domain;
 using ShopApp.Infrastructure.Persistence;
 
-namespace ShopApp.Infrastructure;
+namespace ShopApp.Infrastructure.Persistence;
 
-public class UserRepository : IUserRepository
+public class UserRepository : BaseRepository<User>, IUserRepository
 {
-    private readonly AppDbContext _context;
+    public UserRepository(AppDbContext context) : base(context) { }
 
-    public UserRepository(AppDbContext context)
-    {
-        _context = context;
-    }
     public User? GetUserById(Guid userId)
     {
-        return _context.Users.SingleOrDefault(u => u.Id == userId);
+        throw new NotImplementedException();
     }
 
     public User? GetUserByEmail(string email)
@@ -24,22 +20,8 @@ public class UserRepository : IUserRepository
 
     public IQueryable<User> GetUsers()
     {
-        throw new NotImplementedException();
+        return _context.Users;
     }
-
-    public void Save()
-    {
-        _context.SaveChanges();
-    }
-
-    public void InsertUser(User user)
-    {
-        _context.Users.Add(user);
-    }
-
-    public void DeleteUser(Guid userId)
-    {
-        var user = GetUserById(userId);
-        _context.Users.Remove(user);
-    }
+    
+    
 }

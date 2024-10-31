@@ -12,7 +12,7 @@ public interface IUserRepository
 
     void Save();
 
-    void InsertUser(User user);
+    void Insert(User user);
 
-    void DeleteUser(Guid userId);
+    void Delete(Guid userId);
 }

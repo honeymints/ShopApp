@@ -1,4 +1,5 @@
 using Serilog;
+using ShopApp.Api.Filters;
 
 namespace ShopApp.Api.Controllers;
 
@@ -13,7 +14,8 @@ public class AuthenticationController : ControllerBase
     private readonly ILogger<AuthenticationController> _logger;
     private readonly IAuthenticationService _authenticationService;
 
-    public AuthenticationController(IAuthenticationService authenticationService, ILogger<AuthenticationController> logger)
+    public AuthenticationController(IAuthenticationService authenticationService,
+        ILogger<AuthenticationController> logger)
     {
         _authenticationService=authenticationService;
         _logger = logger;

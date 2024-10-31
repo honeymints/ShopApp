@@ -51,7 +51,7 @@ public class AuthenticationService : IAuthenticationService
             Password = PasswordHasher.HashPassword(password),
         };
             
-        _userRepository.InsertUser(user);
+        _userRepository.Insert(user);
         _userRepository.Save();
         var token = _tokenGenerator.GenerateToken(user);
             

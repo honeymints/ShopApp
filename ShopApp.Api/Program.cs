@@ -1,8 +1,6 @@
 using Serilog;
 using ShopApp.Application;
-using ShopApp.Application.Services.Authentication;
 using ShopApp.Infrastructure;
-using ShopApp.Infrastructure.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
-builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
@@ -28,7 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseSerilogRequestLogging();
-
+app.UseRouting();
+app.UseExceptionHandler("/error");
 app.UseAuthorization();
 
 app.MapControllers();
