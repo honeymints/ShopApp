@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShopApp.Application.Common.Services;
-using ShopApp.Application.Interfaces;
+using ShopApp.Application.Common.Interfaces;
 using ShopApp.Application.Persistence;
 using ShopApp.Infrastructure.Authentication;
 using ShopApp.Infrastructure.Persistence;
@@ -22,6 +22,7 @@ public static class DependencyInjection {
         services.AddSingleton<ITokenGenerator, TokenGenerator>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
         
         return services;
     }

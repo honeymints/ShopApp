@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ShopApp.Application.Persistence;
 using ShopApp.Domain.Common;
 
@@ -12,50 +13,68 @@ public abstract class BaseRepository<T> where T : BaseEntity
         _context = context;
     }
 
-    public virtual void Save()
+    public virtual async Task SaveAsync()
     {
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public virtual void Insert(T entity)
+    public virtual async Task InsertAsync(T entity)
     {
         entity.CreateDate = DateTime.UtcNow;
-        _context.Set<T>().Add(entity);
+        await _context.Set<T>().AddAsync(entity);
     }
 
-    public virtual T? FindById(Guid id)
+    public virtual async Task InsertRangeAsync(IEnumerable<T> entities)
     {
-        return _context?.Find<T>(id);
+        entities.ToList().ForEach(e=>e.CreateDate=DateTime.UtcNow);
+
+        await _context.Set<T>().AddRangeAsync(entities);
+    }
+    
+    public virtual async Task<T?> FindById(Guid id)
+    {
+        var entity = await _context.FindAsync<T>(id);
+        return entity;
     }
 
-    public virtual void Delete(Guid id)
+    public virtual async Task DeleteAsync(Guid id)
     {
-        var entity = FindById(id);
+        var entity =  await FindById(id);
         _context.Set<T>().Remove(entity);
     }
     
-    public virtual void Update(T entity)
+    public virtual async Task UpdateAsync(T entity)
     {
         entity.UpdateDate = DateTime.UtcNow;
-        _context.Set<T>().Update(entity);
+        _context.Entry(entity).State = EntityState.Modified;
     }
 
-    public virtual void BeginTransaction()
+    public virtual async Task<IEnumerable<T>> GetAll()
+    {
+        var entities = await _context.Set<T>().ToListAsync();
+        return entities;
+    }
+
+    public virtual async Task<bool> IsExists(Guid id)
+    {
+        return await _context.FindAsync<T>(id) != null;
+    }
+    public virtual async Task BeginTransaction()
     {
         _context.Database.BeginTransaction();
     }
 
-    public virtual void CommitTransaction()
+    public virtual async Task CommitTransaction()
     {
         _context.Database.CommitTransaction();
     }
 
-    public virtual void RollbackTransaction()
+    public virtual async Task RollbackTransaction()
     {
         _context.Database.RollbackTransaction();
     }
 
-    public void Dispose()
+    public async Task Dispose()
     {
         throw new NotImplementedException();
     }

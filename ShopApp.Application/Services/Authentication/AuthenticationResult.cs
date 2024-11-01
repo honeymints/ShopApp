@@ -1,4 +1,4 @@
-using ShopApp.Domain;
+using ShopApp.Domain.Entities;
 
 namespace ShopApp.Application.Services.Authentication;
 

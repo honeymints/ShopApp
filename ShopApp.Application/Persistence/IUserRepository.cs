@@ -1,18 +1,21 @@
-using ShopApp.Domain;
+using ShopApp.Domain.Entities;
 
 namespace ShopApp.Application.Persistence;
 
 public interface IUserRepository
 {
-    User? GetUserById(Guid userId);
+    Task<User?> FindById(Guid userId);
 
     User? GetUserByEmail(string email);
+
+    Task SaveAsync();
+
+    Task InsertAsync(User user);
     
-    IQueryable<User> GetUsers();
-
-    void Save();
-
-    void Insert(User user);
-
-    void Delete(Guid userId);
+    Task<IEnumerable<User>> GetAll();
+    Task InsertRangeAsync(IEnumerable<User> product);
+    Task DeleteAsync(Guid userId);
+    
+    Task<bool> IsExists(Guid itemId);
+    Task UpdateAsync(User user);
 }

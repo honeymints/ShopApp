@@ -5,11 +5,11 @@ using ShopApp.Api.Filters;
 namespace ShopApp.Api.Controllers;
 
 /*[ErrorHandlingFilterAttributes]*/
-
+[ApiController]
 [Route("/error")]
 public class ErrorsController : ControllerBase
 {
-    [HttpGet]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public IActionResult Error()
     {
         Exception? exception = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Error;

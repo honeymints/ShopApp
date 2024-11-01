@@ -1,7 +1,7 @@
 using ShopApp.Application.Common.Services;
-using ShopApp.Application.Interfaces;
+using ShopApp.Application.Common.Interfaces;
 using ShopApp.Application.Persistence;
-using ShopApp.Domain;
+using ShopApp.Domain.Entities;
 
 namespace ShopApp.Application.Services.Authentication;
 
@@ -51,8 +51,8 @@ public class AuthenticationService : IAuthenticationService
             Password = PasswordHasher.HashPassword(password),
         };
             
-        _userRepository.Insert(user);
-        _userRepository.Save();
+        _userRepository.InsertAsync(user);
+        _userRepository.SaveAsync();
         var token = _tokenGenerator.GenerateToken(user);
             
         return new AuthenticationResult(

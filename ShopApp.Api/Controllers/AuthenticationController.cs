@@ -1,4 +1,3 @@
-using Serilog;
 using ShopApp.Api.Filters;
 
 namespace ShopApp.Api.Controllers;
@@ -17,7 +16,7 @@ public class AuthenticationController : ControllerBase
     public AuthenticationController(IAuthenticationService authenticationService,
         ILogger<AuthenticationController> logger)
     {
-        _authenticationService=authenticationService;
+        _authenticationService = authenticationService;
         _logger = logger;
     }
 
@@ -67,5 +66,10 @@ public class AuthenticationController : ControllerBase
            authResult.Token);
        
        return Ok(response);
+    }
+    [HttpPost("logout")]
+    public IActionResult Logout()
+    {
+        return Ok();
     }
 }

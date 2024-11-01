@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShopApp.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using ShopApp.Infrastructure.Persistence;
 namespace ShopApp.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241101053957_AddedCategoriesAndItemsTableWithRelations")]
+    partial class AddedCategoriesAndItemsTableWithRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace ShopApp.Infrastructure.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ShopApp.Domain.Entities.Product", b =>
+            modelBuilder.Entity("ShopApp.Domain.Entities.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,48 +63,15 @@ namespace ShopApp.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<int?>("Rating")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("ShopApp.Domain.Entities.ProductAsFavourite", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ProductAsFavourites");
-                });
-
-            modelBuilder.Entity("ShopApp.Domain.Entities.ProductCategory", b =>
+            modelBuilder.Entity("ShopApp.Domain.Entities.ItemCategory", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,7 +83,7 @@ namespace ShopApp.Infrastructure.Data.Migrations
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid>("ItemId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -123,9 +93,9 @@ namespace ShopApp.Infrastructure.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ItemId");
 
-                    b.ToTable("ProductCategories");
+                    b.ToTable("ItemCategories");
                 });
 
             modelBuilder.Entity("ShopApp.Domain.Entities.User", b =>
@@ -161,59 +131,33 @@ namespace ShopApp.Infrastructure.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ShopApp.Domain.Entities.ProductAsFavourite", b =>
-                {
-                    b.HasOne("ShopApp.Domain.Entities.Product", "Product")
-                        .WithMany("ProductAsFavourites")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ShopApp.Domain.Entities.User", "User")
-                        .WithMany("ProductAsFavourites")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ShopApp.Domain.Entities.ProductCategory", b =>
+            modelBuilder.Entity("ShopApp.Domain.Entities.ItemCategory", b =>
                 {
                     b.HasOne("ShopApp.Domain.Entities.Category", "Category")
-                        .WithMany("ProductCategories")
+                        .WithMany("ItemCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShopApp.Domain.Entities.Product", "Product")
-                        .WithMany("ProductCategories")
-                        .HasForeignKey("ProductId")
+                    b.HasOne("ShopApp.Domain.Entities.Item", "Item")
+                        .WithMany("ItemCategories")
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
 
-                    b.Navigation("Product");
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("ShopApp.Domain.Entities.Category", b =>
                 {
-                    b.Navigation("ProductCategories");
+                    b.Navigation("ItemCategories");
                 });
 
-            modelBuilder.Entity("ShopApp.Domain.Entities.Product", b =>
+            modelBuilder.Entity("ShopApp.Domain.Entities.Item", b =>
                 {
-                    b.Navigation("ProductAsFavourites");
-
-                    b.Navigation("ProductCategories");
-                });
-
-            modelBuilder.Entity("ShopApp.Domain.Entities.User", b =>
-                {
-                    b.Navigation("ProductAsFavourites");
+                    b.Navigation("ItemCategories");
                 });
 #pragma warning restore 612, 618
         }

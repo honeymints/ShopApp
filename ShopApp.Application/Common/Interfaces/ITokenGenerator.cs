@@ -1,6 +1,6 @@
-using ShopApp.Domain;
+using ShopApp.Domain.Entities;
 
-namespace ShopApp.Application.Interfaces;
+namespace ShopApp.Application.Common.Interfaces;
 
 public interface ITokenGenerator
 {

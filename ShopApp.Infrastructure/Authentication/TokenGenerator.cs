@@ -4,8 +4,8 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ShopApp.Application.Common.Services;
-using ShopApp.Application.Interfaces;
-using ShopApp.Domain;
+using ShopApp.Application.Common.Interfaces;
+using ShopApp.Domain.Entities;
 
 namespace ShopApp.Infrastructure.Authentication;
 
