@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopApp.Application.Services.Products;
 using ShopApp.Contracts.Authentication;
@@ -16,14 +17,15 @@ public class ProductController : Controller
         _productService = productService;
         _logger = logger;
     }
-
+    
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpGet("all")]
     public async Task<IActionResult> GetAll()
     {
         var productResult = await _productService.GetProducts();
 
         var productDto = productResult.Select
-            (p=>new ProductDto(
+            (p => new ProductDto(
             Id:p.Id,
             Name: p.Name,
             Description: p.Description,
@@ -35,6 +37,7 @@ public class ProductController : Controller
         return Ok(response);
     }
 
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(Guid id)
     {
@@ -51,6 +54,7 @@ public class ProductController : Controller
         return Ok(productDto);
     }
 
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpPost]
     public async Task<IActionResult> Add(CreateProductRequest createProductRequest)
     {
