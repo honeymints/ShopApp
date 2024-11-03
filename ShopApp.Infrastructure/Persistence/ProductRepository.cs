@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ShopApp.Application.Persistence;
 using ShopApp.Domain.Entities;
+using ShopApp.Infrastructure.Persistence.Common;
 
 namespace ShopApp.Infrastructure.Persistence;
 

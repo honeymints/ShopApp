@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShopApp.Application.Services.Products;
 using ShopApp.Contracts.Authentication;
 using ShopApp.Domain.Entities;
+using ShopApp.Application.Persistence.DTOs;
 
 namespace ShopApp.Api.Controllers;
 
@@ -17,24 +18,23 @@ public class ProductController : Controller
         _productService = productService;
         _logger = logger;
     }
-    
-    [Authorize(AuthenticationSchemes = "Bearer")]
+
+    [Authorize]
     [HttpGet("all")]
     public async Task<IActionResult> GetAll()
     {
         var productResult = await _productService.GetProducts();
 
-        var productDto = productResult.Select
-            (p => new ProductDto(
-            Id:p.Id,
-            Name: p.Name,
-            Description: p.Description,
-            Price: p.Price
-        )).ToList();
-                    
-        var response = new ProductResponse(productDto);
-        
-        return Ok(response);
+        var productDto = productResult
+        .Select(p => new ProductDto
+        {
+            Id = p.Id,
+            Name = p.Name,
+            Description = p.Description,
+            Price = p.Price
+        }).ToList();
+
+        return Ok(productDto);
     }
 
     [Authorize(AuthenticationSchemes = "Bearer")]
@@ -44,12 +44,12 @@ public class ProductController : Controller
         var product = await _productService.GetProductById(id);
 
         var productDto = new ProductDto
-        (
-            Id: product.Id,
-            Description: product.Description,
-            Price: product.Price,
-            Name: product.Name
-        );
+        {
+            Id = product.Id,
+            Description = product.Description,
+            Price = product.Price,
+            Name = product.Name
+        };
 
         return Ok(productDto);
     }
@@ -58,15 +58,14 @@ public class ProductController : Controller
     [HttpPost]
     public async Task<IActionResult> Add(CreateProductRequest createProductRequest)
     {
-        var product = new Product()
+        var productDto = new ProductDto()
         {
             Name = createProductRequest.Name,
             Description = createProductRequest.Description,
             Price = createProductRequest.Price,
-
         };
-        await _productService.AddProduct(product);
-        
+        await _productService.AddProduct(productDto);
+
         return Created();
     }
 }

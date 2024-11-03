@@ -1,12 +1,13 @@
+using ShopApp.Application.Persistence.DTOs;
 using ShopApp.Domain.Entities;
 
 namespace ShopApp.Application.Services.Products;
 
 public interface IProductService
 {
-    Task<IEnumerable<Product>> GetProducts();
+    Task<IEnumerable<ProductDto>> GetProducts();
 
-    Task<Product?> GetProductById(Guid id);
+    Task<ProductDto?> GetProductById(Guid id);
     
-    Task AddProduct(Product product);
+    Task AddProduct(ProductDto product);
 }

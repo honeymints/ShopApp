@@ -6,11 +6,13 @@ using ShopApp.Application.Common.Interfaces;
 using ShopApp.Application.Persistence;
 using ShopApp.Infrastructure.Authentication;
 using ShopApp.Infrastructure.Persistence;
+using ShopApp.Infrastructure.Persistence.Common;
 using ShopApp.Infrastructure.Services;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Mapster;
 
 namespace ShopApp.Infrastructure;
 
@@ -73,6 +75,8 @@ public static class DependencyInjection
             );
         services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(configurationManager.GetConnectionString("DefaultConnection")));
+        services.AddMapster();
+        MapsterConfig.Configure();
 
         services.AddSingleton<ITokenGenerator, TokenGenerator>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();

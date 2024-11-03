@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using ShopApp.Application.Persistence;
 using ShopApp.Domain.Common;
+using ShopApp.Infrastructure.Persistence.Common;
 
 namespace ShopApp.Infrastructure.Persistence;
 

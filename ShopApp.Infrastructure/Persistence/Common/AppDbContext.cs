@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ShopApp.Domain.Entities;
 
-namespace ShopApp.Infrastructure.Persistence;
+namespace ShopApp.Infrastructure.Persistence.Common;
 
 public class AppDbContext : DbContext
 {

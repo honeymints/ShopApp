@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShopApp.Infrastructure;
 using ShopApp.Infrastructure.Persistence;
+using ShopApp.Infrastructure.Persistence.Common;
 
 #nullable disable
 
