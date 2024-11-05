@@ -1,3 +1,4 @@
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using ShopApp.Application.Persistence;
 using ShopApp.Domain.Entities;
@@ -23,13 +24,18 @@ public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     public async Task DeleteCategoryFromProduct(Guid categoryId, Guid productId)
     {
         var productCategory = _context.ProductCategories
-        .Where(pc=> pc.CategoryId == categoryId && pc.ProductId == productId);
+        .Where(pc=> pc.CategoryId == categoryId && pc.ProductId == productId)
+        .FirstOrDefaultAsync();
 
-        await _context.Remove(productCategory);
+        _context.Remove(productCategory);
     }
 
-    public Task UpdateProductCategory(Category category, Product product)
+    public async Task UpdateProductCategory(Category category, Product product)
     {
+        var productCategory = await _context.ProductCategories
+        .Where(pc=> pc.Category.Equals(category) && pc.Product.Equals(product))
+        .FirstOrDefaultAsync();
         
+        _context.ProductCategories.Update(productCategory);
     }
 }
