@@ -1,5 +1,6 @@
 using Mapster;
-using ShopApp.Application.Persistence.DTOs;
+using ShopApp.Application.DTOs.Product;
+using ShopApp.Application.DTOs.User;
 using ShopApp.Domain.Entities;
 
 namespace ShopApp.Infrastructure.Services;

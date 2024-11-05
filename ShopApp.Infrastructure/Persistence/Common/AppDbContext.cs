@@ -15,5 +15,5 @@ public class AppDbContext : DbContext
     
     public DbSet<ProductCategory> ProductCategories { get; set; }
     
-    public DbSet<ProductAsFavourite> ProductAsFavourites { get; set; }
+    // public DbSet<ProductAsFavourite> ProductAsFavourites { get; set; }
 }

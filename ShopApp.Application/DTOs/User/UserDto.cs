@@ -1,4 +1,4 @@
-namespace ShopApp.Application.Persistence.DTOs;
+namespace ShopApp.Application.DTOs.User;
 
 
 public class UserDto {

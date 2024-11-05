@@ -1,6 +1,7 @@
 using MapsterMapper;
+using ShopApp.Application.DTOs.Category;
+using ShopApp.Application.DTOs.Product;
 using ShopApp.Application.Persistence;
-using ShopApp.Application.Persistence.DTOs;
 using ShopApp.Domain.Entities;
 
 namespace ShopApp.Application.Services.Products;
@@ -9,6 +10,7 @@ public class ProductService : IProductService
 {
     private readonly IMapper _mapper;
     private readonly IProductRepository _productRepository;
+    // private readonly ICategoryRepository _categoryRepository;
 
     public ProductService(IProductRepository productRepository, IMapper mapper)
     {
@@ -40,4 +42,10 @@ public class ProductService : IProductService
         await _productRepository.InsertAsync(product);
         await _productRepository.SaveAsync();
     }
+
+    public Task AddCategoryToProduct(CategoryDto categoryDto)
+    {
+        throw new NotImplementedException();
+    }
+
 }

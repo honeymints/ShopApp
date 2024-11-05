@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopApp.Application.Services.Products;
 using ShopApp.Contracts.Authentication;
-using ShopApp.Domain.Entities;
-using ShopApp.Application.Persistence.DTOs;
+using ShopApp.Application.DTOs.Product;
 
 namespace ShopApp.Api.Controllers;
 
@@ -68,4 +67,6 @@ public class ProductController : Controller
 
         return Created();
     }
+
+    
 }

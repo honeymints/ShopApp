@@ -1,5 +1,4 @@
-using ShopApp.Application.Persistence.DTOs;
-using ShopApp.Domain.Entities;
+using ShopApp.Application.DTOs.Product;
 
 namespace ShopApp.Application.Services.Products;
 

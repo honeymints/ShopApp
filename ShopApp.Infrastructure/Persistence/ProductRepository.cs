@@ -24,7 +24,7 @@ public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
         var items = await _context.Products
             .Include(c => c.ProductCategories)
-            .Where(c => c.ProductAsFavourites.Any(u => u.UserId == userId))
+            .Where(c => c.FavouredByUsers.Any(u => u.Id == userId))
             .ToListAsync();
         return items;
     }

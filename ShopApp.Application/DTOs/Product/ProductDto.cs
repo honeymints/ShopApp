@@ -1,5 +1,4 @@
-
-namespace ShopApp.Application.Persistence.DTOs;
+namespace ShopApp.Application.DTOs.Product;
 
 public class ProductDto
 {
