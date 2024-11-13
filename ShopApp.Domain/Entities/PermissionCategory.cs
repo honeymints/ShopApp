@@ -1,12 +1,14 @@
 using ShopApp.Domain.Common;
+using ShopApp.Domain.Enums;
 
 namespace ShopApp.Domain.Entities;
 
 
 public class PermissionCategory : BaseEntity
 {
-    public PermssionCategoryEnum Valur { get; set; }
-
-    public PermissionAction PermissionAction { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public PermssionCategoryEnum Value { get; set; }
+    public virtual ICollection<PermissionAction> PermissionActions { get; set; } = [];
 
 }
