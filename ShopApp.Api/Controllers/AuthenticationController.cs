@@ -21,12 +21,13 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost("register")]
-    public IActionResult Register(RegisterRequest request){
+    public async Task<IActionResult> Register(RegisterRequest request)
+    {
 
         _logger.LogInformation(
             "Proccessing request: {1}", request);
-        
-        var authResult =_authenticationService.Register(
+
+        var authResult = await _authenticationService.Register(
             request.Name,
             request.LastName,
             request.Email,
@@ -34,8 +35,8 @@ public class AuthenticationController : ControllerBase
 
         _logger.LogInformation(
             "User has been registrated successfully: {1}", authResult);
-        
-        var response=new AuthResposne(
+
+        var response = new AuthResposne(
             authResult.User.Id,
             authResult.User.Name,
             authResult.User.LastName,
@@ -46,26 +47,27 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult Login(LoginRequest request){
+    public async Task<IActionResult> Login(LoginRequest request)
+    {
 
         _logger.LogInformation(
             "Proccessing request: {1}", request);
-        
-       var authResult = _authenticationService.Login(
-           request.Email,
-           request.Password);
-       
-       _logger.LogInformation(
-           "User has been authenticated successfully: {1}", authResult);
-       
-       var response=new AuthResposne(
-           authResult.User.Id,
-           authResult.User.Name,
-           authResult.User.LastName,
-           authResult.User.Email,
-           authResult.Token);
-       
-       return Ok(response);
+
+        var authResult = await _authenticationService.Login(
+            request.Email,
+            request.Password);
+
+        _logger.LogInformation(
+            "User has been authenticated successfully: {1}", authResult);
+
+        var response = new AuthResposne(
+            authResult.User.Id,
+            authResult.User.Name,
+            authResult.User.LastName,
+            authResult.User.Email,
+            authResult.Token);
+
+        return Ok(response);
     }
     [HttpPost("logout")]
     public IActionResult Logout()

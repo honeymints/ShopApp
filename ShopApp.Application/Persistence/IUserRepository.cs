@@ -9,11 +9,11 @@ public interface IUserRepository
     User? GetUserByEmail(string email);
 
 
-    Task<IEnumerable<User>> GetAll();
+    Task<IReadOnlyCollection<User>> GetAll();
     Task SaveAsync();
     Task InsertAsync(User user);
     
-    Task InsertRangeAsync(IEnumerable<User> user);
+    Task InsertRangeAsync(ICollection<User> user);
     Task DeleteAsync(Guid userId);
     
     Task<bool> IsExists(Guid itemId);

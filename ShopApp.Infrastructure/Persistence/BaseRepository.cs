@@ -24,7 +24,7 @@ public abstract class BaseRepository<T> where T : BaseEntity
         await _context.Set<T>().AddAsync(entity);
     }
 
-    public virtual async Task InsertRangeAsync(IEnumerable<T> entities)
+    public virtual async Task InsertRangeAsync(ICollection<T> entities)
     {
         entities.ToList().ForEach(e=>e.CreateDate=DateTime.UtcNow);
 
@@ -49,7 +49,7 @@ public abstract class BaseRepository<T> where T : BaseEntity
         _context.Entry(entity).State = EntityState.Modified;
     }
 
-    public virtual async Task<IEnumerable<T>> GetAll()
+    public virtual async Task<IReadOnlyCollection<T>> GetAll()
     {
         var entities = await _context.Set<T>().ToListAsync();
         return entities;

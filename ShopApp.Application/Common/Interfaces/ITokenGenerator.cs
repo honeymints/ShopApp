@@ -4,6 +4,6 @@ namespace ShopApp.Application.Common.Interfaces;
 
 public interface ITokenGenerator
 {
-    public string GenerateToken(User user);
+    public Task<string> GenerateToken(LoginUser loggedInUser, IReadOnlyCollection<PremissionActionClaim> premissionActionClaim);
     
 }

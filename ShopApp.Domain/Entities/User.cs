@@ -8,8 +8,11 @@ public class User : BaseEntity
     public string LastName { get; set; }
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!;
-    
+
     //public virtual ICollection<ProductAsFavourite> ProductAsFavourites { get; set; } = new List<ProductAsFavourite>();
     public virtual ICollection<Product> FavouriteProducts { get; set; } = [];
 
+    public virtual ICollection<UserRole> UserRoles { get; set; } = [];
+
+    
 }

@@ -14,7 +14,6 @@ public class AppDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
 
     public DbSet<ProductCategory> ProductCategories { get; set; }
-    //public DbSet<ProductAsFavourite> ProductAsFavourites { get; set; }
     public DbSet<Role> Roles { get; set; }
 
     public DbSet<UserRole> UserRoles { get; set; }
@@ -25,6 +24,6 @@ public class AppDbContext : DbContext
 
     public DbSet<RolePermission> RolePermissions { get; set; }
 
-    
+    public DbSet<LoginUser> LoginUsers { get; set; }
 
 }

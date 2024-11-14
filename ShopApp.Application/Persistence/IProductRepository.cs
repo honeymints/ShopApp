@@ -10,13 +10,13 @@ public interface IProductRepository
     
     Task<IEnumerable<Product>> GetLikedItemsOfUser(Guid userId);
     
-    Task<IEnumerable<Product>> GetAll();
+    Task<IReadOnlyCollection<Product>> GetAll();
 
     Task SaveAsync();
 
     Task InsertAsync(Product product);
     
-    Task InsertRangeAsync(IEnumerable<Product> product);
+    Task InsertRangeAsync(ICollection<Product> product);
 
     Task DeleteAsync(Guid itemId);
     

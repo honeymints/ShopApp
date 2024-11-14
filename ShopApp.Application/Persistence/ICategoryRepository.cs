@@ -10,11 +10,11 @@ public interface ICategoryRepository
     Task DeleteCategoryFromProduct(Guid categoryId, Guid productId);
 
     Task UpdateProductCategory(Category category, Product product);
-    Task<IEnumerable<Category>> GetAll();
+    Task<IReadOnlyCollection<Category>> GetAll();
     Task SaveAsync();
     Task InsertAsync(Category category);
     
-    Task InsertRangeAsync(IEnumerable<Category> categories);
+    Task InsertRangeAsync(ICollection<Category> categories);
     Task DeleteAsync(Guid categoryId);
     
     Task<bool> IsExists(Guid itemId);

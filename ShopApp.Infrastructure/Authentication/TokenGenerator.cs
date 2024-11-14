@@ -7,6 +7,7 @@ using ShopApp.Application.Common.Services;
 using ShopApp.Application.Common.Interfaces;
 using ShopApp.Domain.Entities;
 using ShopApp.Application.Persistence;
+using Newtonsoft.Json;
 
 namespace ShopApp.Infrastructure.Authentication;
 
@@ -15,30 +16,28 @@ public class TokenGenerator : ITokenGenerator
     private readonly JwtSettings _jwtSettings;
     private readonly IDateTimeProvider _dateTimeProvider;
 
-    private readonly IRolePermissionRepository _rolePermissionRepo;
-    public TokenGenerator(IDateTimeProvider dateTimeProvider, IOptions<JwtSettings> jwtSettings, IRolePermissionRepository rolePermissionRepository)
+    public TokenGenerator(IDateTimeProvider dateTimeProvider, IOptions<JwtSettings> jwtSettings)
     {
         _jwtSettings = jwtSettings.Value;
         _dateTimeProvider = dateTimeProvider;
-        _rolePermissionRepo = rolePermissionRepository;
     }
-    public string GenerateToken(User user)
+    public async Task<string> GenerateToken(LoginUser loggedInUser, IReadOnlyCollection<PremissionActionClaim> premissionActionClaim)
     {
         var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings.Secret));
 
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-
-
-        var claims = new[]
+        var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Name, user.Name)
+            new Claim(JwtRegisteredClaimNames.Email, loggedInUser.Email),
+            new Claim(JwtRegisteredClaimNames.Sub, loggedInUser.UserId.ToString()),
+            new Claim(JwtRegisteredClaimNames.GivenName, loggedInUser.Name)
         };
+               
+        var permissionJson = JsonConvert.SerializeObject(premissionActionClaim);
 
-        //var permissionClaim = _rolePermissionRepo.GetPermissionClaimsByUserAsync();
+        claims.Add(new Claim("Permissions", permissionJson));
 
         var token = new JwtSecurityToken(
             issuer: _jwtSettings.Issuer,
