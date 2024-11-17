@@ -24,6 +24,16 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
         }
 
         bool isAuthorized = CheckUserPermission(user, (PermissionActionEnum)Enum.Parse(typeof(PermissionActionEnum), requirement.Permission));
+
+        if (isAuthorized)
+        {
+            context.Succeed(requirement);
+        }
+        else
+        {
+            context.Fail();
+        }
+        return Task.CompletedTask;
     }
 
     private bool CheckUserPermission(ClaimsPrincipal user, PermissionActionEnum permissionActionEnum)
@@ -45,11 +55,12 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
 
     private bool HasRequiredPermissions(PermissionActionEnum permissionActionEnum, PermissionsClaim? permissions)
     {
-        foreach (var cateogry in permissions.PermissionCategories)
+        foreach (var cateogry in permissions.Categories)
         {
-                if(cateogry.PermissionActions.Any(x=>x.Value == permissionActionEnum)){
-                    return true;
-                }
+            if (cateogry.Actions.Any(x => x.Value == permissionActionEnum))
+            {
+                return true;
+            }
         }
 
         return false;
