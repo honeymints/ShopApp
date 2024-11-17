@@ -21,7 +21,7 @@ public class TokenGenerator : ITokenGenerator
         _jwtSettings = jwtSettings.Value;
         _dateTimeProvider = dateTimeProvider;
     }
-    public async Task<string> GenerateToken(LoginUser loggedInUser, IReadOnlyCollection<PremissionActionClaim> premissionActionClaim)
+    public async Task<string> GenerateToken(User user, IReadOnlyCollection<PremissionActionClaim> premissionActionClaim)
     {
         var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings.Secret));
 
@@ -30,9 +30,9 @@ public class TokenGenerator : ITokenGenerator
         var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, loggedInUser.Email),
-            new Claim(JwtRegisteredClaimNames.Sub, loggedInUser.UserId.ToString()),
-            new Claim(JwtRegisteredClaimNames.GivenName, loggedInUser.Name)
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.GivenName, user.Name)
         };
                
         var permissionJson = JsonConvert.SerializeObject(premissionActionClaim);

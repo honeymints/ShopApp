@@ -2,7 +2,7 @@ using ShopApp.Domain.Enums;
 
 namespace ShopApp.Domain.Entities;
 
-public class PremissionActionClaim
+public class PermissionsActionClaim
 {
     public string Name { get; set; }
 

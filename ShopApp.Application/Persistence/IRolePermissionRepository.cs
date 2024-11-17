@@ -4,10 +4,13 @@ namespace ShopApp.Application.Persistence;
 
 public interface IRolePermissionRepository {
 
-    Task<IReadOnlyCollection<PremissionActionClaim>> GetPermissionClaimsByUserAsync(LoginUser loginUser);
+    Task<PermissionsClaim> GetPermissionClaimsByUserAsync(Guid userId);
 
     Task GetRolesAsync();
 
-    Task GetRolePermissionsAsync();
+    Task AddPermissionsToRole(RolePermission rolePermission);
+
+    Task DeletePermissionsFromRole(Guid RolePermissionId);
+
 
 }

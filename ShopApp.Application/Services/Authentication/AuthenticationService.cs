@@ -38,31 +38,13 @@ public class AuthenticationService : IAuthenticationService
         {
             throw new Exception("incorrect password!");
         }
+        var permissionClaim = await _rolePermissionRepo.GetPermissionClaimsByUserAsync(user);
+        var token = await _tokenGenerator.GenerateToken(user, permissionClaim);
 
-        var isUserLoggedIn = await _loginUserRepository.IsUserLoggedIn(email);
-
-        if (isUserLoggedIn)
-        {
-            throw new Exception("You're already logged in!");
-        }
-
-        var loginUser = new LoginUser
-        {
-            Email = user.Email,
-            Name = user.Name,
-            UserId = user.Id,
-            LastName = user.LastName
-        };
-        var permissionClaim = await _rolePermissionRepo.GetPermissionClaimsByUserAsync(loginUser);
-        var token = await _tokenGenerator.GenerateToken(loginUser, permissionClaim);
-
-        loginUser.Token = token;
-
-        await _loginUserRepository.InsertAsync(loginUser);
         await _userRepository.SaveAsync();
 
         return new AuthenticationResult(
-            loginUser,
+            user,
             token
         );
     }
@@ -85,24 +67,14 @@ public class AuthenticationService : IAuthenticationService
         await _userRepository.InsertAsync(user);
         await _userRepository.SaveAsync();
 
-        var loginUser = new LoginUser
-        {
-            Email = user.Email,
-            Name = user.Name,
-            UserId = user.Id,
-            LastName = user.LastName
-        };
 
-        var permissionClaim = await _rolePermissionRepo.GetPermissionClaimsByUserAsync(loginUser);
-        var token = await _tokenGenerator.GenerateToken(loginUser, permissionClaim);
+        var permissionClaim = await _rolePermissionRepo.GetPermissionClaimsByUserAsync(user);
+        var token = await _tokenGenerator.GenerateToken(user, permissionClaim);
 
-        loginUser.Token = token;
-
-        await _loginUserRepository.InsertAsync(loginUser);
         await _userRepository.SaveAsync();
 
         return new AuthenticationResult(
-            loginUser,
+            user,
             token
         );
 

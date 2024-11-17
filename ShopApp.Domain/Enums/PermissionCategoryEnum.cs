@@ -1,6 +1,6 @@
 namespace ShopApp.Domain.Enums;
 
-public enum PermssionCategoryEnum
+public enum PermissionCategoryEnum
 {
     Product = 1 ,
     Category,
