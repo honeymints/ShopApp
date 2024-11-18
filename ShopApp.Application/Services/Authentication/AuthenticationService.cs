@@ -38,7 +38,8 @@ public class AuthenticationService : IAuthenticationService
         {
             throw new Exception("incorrect password!");
         }
-        var permissionClaim = await _rolePermissionRepo.GetPermissionClaimsByUserAsync(user);
+        
+        var permissionClaim = await _rolePermissionRepo.GetPermissionClaimsByUserAsync(user.Id);
         var token = await _tokenGenerator.GenerateToken(user, permissionClaim);
 
         await _userRepository.SaveAsync();
@@ -68,7 +69,7 @@ public class AuthenticationService : IAuthenticationService
         await _userRepository.SaveAsync();
 
 
-        var permissionClaim = await _rolePermissionRepo.GetPermissionClaimsByUserAsync(user);
+        var permissionClaim = await _rolePermissionRepo.GetPermissionClaimsByUserAsync(user.Id);
         var token = await _tokenGenerator.GenerateToken(user, permissionClaim);
 
         await _userRepository.SaveAsync();

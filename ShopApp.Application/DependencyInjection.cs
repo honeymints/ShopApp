@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using ShopApp.Application.Services;
 using ShopApp.Application.Services.Authentication;
 using ShopApp.Application.Services.Products;
 
@@ -10,6 +11,7 @@ public static class DependencyInjection {
         
         collection.AddScoped<IAuthenticationService, AuthenticationService>();
         collection.AddScoped<IProductService, ProductService>();
+        collection.AddScoped<IRolePermissionService, RolePermissionService>();
         
         return collection;
     }

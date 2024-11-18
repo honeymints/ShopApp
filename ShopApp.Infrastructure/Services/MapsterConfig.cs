@@ -1,4 +1,5 @@
 using Mapster;
+using ShopApp.Application.DTOs;
 using ShopApp.Application.DTOs.Product;
 using ShopApp.Application.DTOs.User;
 using ShopApp.Domain.Entities;

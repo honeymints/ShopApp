@@ -4,13 +4,16 @@ namespace ShopApp.Application.Persistence;
 
 public interface IRolePermissionRepository {
 
+   Task<RolePermission?> FindById(Guid userId);
     Task<PermissionsClaim> GetPermissionClaimsByUserAsync(Guid userId);
 
-    Task GetRolesAsync();
+    Task SaveAsync();
+    Task InsertAsync(RolePermission rolePermission);
+    
+    Task InsertRangeAsync(ICollection<RolePermission> rolePermissions);
+    Task DeleteAsync(Guid rolePermissionId);
+    
+    Task<bool> IsExists(Guid itemId);
 
-    Task AddPermissionsToRole(RolePermission rolePermission);
-
-    Task DeletePermissionsFromRole(Guid RolePermissionId);
-
-
+    Task<bool> IsExistsWithSuchPermission(Guid roleId, Guid permissionId);
 }

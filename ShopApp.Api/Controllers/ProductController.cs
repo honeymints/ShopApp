@@ -6,6 +6,7 @@ using ShopApp.Application.DTOs.Product;
 
 namespace ShopApp.Api.Controllers;
 
+[ApiController]
 [Route("/api/product")]
 public class ProductController : Controller
 {

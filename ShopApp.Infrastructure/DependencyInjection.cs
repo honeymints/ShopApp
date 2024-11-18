@@ -77,14 +77,15 @@ public static class DependencyInjection
             options.UseNpgsql(configurationManager.GetConnectionString("DefaultConnection")));
         services.AddMapster();
         MapsterConfig.Configure();
+        services.AddSingleton<ITokenGenerator, TokenGenerator>();
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
         services.AddScoped<ILoginUserRepository, LoginUserRepository>();
-        services.AddSingleton<ITokenGenerator, TokenGenerator>();
-        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
+        services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
+       
         return services;
     }
 }
