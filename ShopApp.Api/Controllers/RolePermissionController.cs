@@ -5,21 +5,22 @@ namespace ShopApp.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class RoleController : ControllerBase
+public class RolePermissionController : ControllerBase
 {
-
     private readonly IRolePermissionService _rolePermissionService;
-    public RoleController(IRolePermissionService rolePermissionService)
+    public RolePermissionController(IRolePermissionService rolePermissionService)
     {
         _rolePermissionService = rolePermissionService;
     }
 
-    [Route("")]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        
+
     }
 
-    public async Task<IActionResult>
+    public async Task<IActionResult> Create()
+    {
+
+    }
 }

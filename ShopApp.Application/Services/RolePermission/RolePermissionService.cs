@@ -1,5 +1,5 @@
 using MapsterMapper;
-using ShopApp.Application.DTOs;
+using ShopApp.Application.DTOs.RolePermissions;
 using ShopApp.Application.Persistence;
 using ShopApp.Domain.Entities;
 
@@ -40,11 +40,6 @@ public class RolePermissionService : IRolePermissionService
         await _rolePermissionRepository.InsertRangeAsync(rolePermissions);
         await _rolePermissionRepository.SaveAsync();
 
-    }
-
-    public async Task<RoleDto> GetRoles()
-    {
-        throw new NotImplementedException();
     }
 
     public async Task UnAssignPermissionsFromRole(PermissionsToRoleDto assignPermissionsToRoleDto)

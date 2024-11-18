@@ -1,3 +1,5 @@
+using ShopApp.Application.DTOs.RolePermissions;
+
 namespace ShopApp.Application.DTOs.Role;
 
 

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace ShopApp.Infrastructure.Attributes;
+namespace ShopApp.Api.Attributes;
 
 
 public class PermissionRequirement : IAuthorizationRequirement
