@@ -51,7 +51,9 @@ public abstract class BaseRepository<T> where T : BaseEntity
 
     public virtual async Task<IReadOnlyCollection<T>> GetAll()
     {
-        var entities = await _context.Set<T>().ToListAsync();
+        var entities = await _context.Set<T>()
+        .AsNoTracking()
+        .ToListAsync();
         return entities;
     }
 

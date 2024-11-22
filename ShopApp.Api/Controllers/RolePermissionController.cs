@@ -13,14 +13,14 @@ public class RolePermissionController : ControllerBase
         _rolePermissionService = rolePermissionService;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
-    {
+    // [HttpGet]
+    // public async Task<IActionResult> GetAll()
+    // {
+        
+    // }
 
-    }
+    // public async Task<IActionResult> Create()
+    // {
 
-    public async Task<IActionResult> Create()
-    {
-
-    }
+    // }
 }

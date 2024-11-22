@@ -11,5 +11,5 @@ public class RoleDto
 
     public string Name { get; set; }
 
-    public ICollection<PermissionActionDto> PermissionActions { get; set;}
+    public ICollection<PermissionActionDto> PermissionActions { get; set; }
 }

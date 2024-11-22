@@ -5,7 +5,7 @@ namespace ShopApp.Application.Services.Products;
 
 public interface IProductService
 {
-    Task<IEnumerable<ProductDto>> GetProducts();
+    Task<List<ProductDto>> GetProducts();
 
     Task<ProductDto?> GetProductById(Guid id);
     

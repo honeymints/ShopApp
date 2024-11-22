@@ -1,0 +1,2 @@
+namespace ShopApp.Contracts.Role;
+

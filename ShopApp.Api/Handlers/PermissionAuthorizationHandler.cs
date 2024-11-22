@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using ShopApp.Domain.Entities;
 using ShopApp.Domain.Enums;
-using ShopApp.Infrastructure.Attributes;
+using ShopApp.Api.Attributes;
 
 namespace ShopApp.Infrastructure.Handlers;
 

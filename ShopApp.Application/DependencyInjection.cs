@@ -12,7 +12,8 @@ public static class DependencyInjection {
         collection.AddScoped<IAuthenticationService, AuthenticationService>();
         collection.AddScoped<IProductService, ProductService>();
         collection.AddScoped<IRolePermissionService, RolePermissionService>();
-        
+        collection.AddScoped<IRoleService, RoleService>();
+
         return collection;
     }
 }

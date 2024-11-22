@@ -18,10 +18,12 @@ public class ProductService : IProductService
         _productRepository = productRepository;
     }
 
-    public async Task<IEnumerable<ProductDto>> GetProducts()
+    public async Task<List<ProductDto>> GetProducts()
     {
         var products = await _productRepository.GetAll();
-        var productDto = products.Select(s => _mapper.Map<ProductDto>(s));
+        var productDto = products
+        .Select(s => _mapper.Map<ProductDto>(s))
+        .ToList();
         return productDto;
     }
 
