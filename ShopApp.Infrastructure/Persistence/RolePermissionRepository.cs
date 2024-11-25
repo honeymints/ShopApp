@@ -68,7 +68,7 @@ public class RolePermissionRepository : BaseRepository<RolePermission>, IRolePer
         throw new NotImplementedException();
     }
 
-    public async Task<bool> IsExistsWithSuchPermission(Guid roleId, Guid permissionId)
+    public async Task<bool> IsRoleExistsWithSuchPermission(Guid roleId, Guid permissionId)
     {
         return await _context.RolePermissions
         .AnyAsync(x => x.PermissionActionId == permissionId

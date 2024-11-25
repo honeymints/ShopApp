@@ -15,5 +15,7 @@ public interface IRolePermissionRepository {
     
     Task<bool> IsExists(Guid itemId);
 
-    Task<bool> IsExistsWithSuchPermission(Guid roleId, Guid permissionId);
+    Task<bool> IsRoleExistsWithSuchPermission(Guid roleId, Guid permissionId);
+
+    public Task<Guid?[]> FindPermissionsByRoleId(Guid roleId);
 }

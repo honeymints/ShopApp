@@ -14,7 +14,15 @@ public class RoleRepository : BaseRepository<Role>, IRoleRepository
     public async Task<bool> IsExists(string Name)
     {
         return await _context.Roles
-        .AnyAsync(x=>x.Name.Equals(Name));
+        .AnyAsync(x => x.Name.Equals(Name));
     }
 
+    public override async Task<IReadOnlyCollection<Role>> GetAll()
+    {
+        return await _context.Roles
+        .Include(x => x.RolePermissions)
+            .ThenInclude(y=>y.PermissionAction)
+        .AsNoTracking()
+        .ToListAsync();
+    }
 }

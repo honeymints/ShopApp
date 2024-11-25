@@ -19,6 +19,7 @@ public class MapsterConfig
         .Map(dest=> dest.LastName, source=> source.LastName);
 
         TypeAdapterConfig<Role, RoleDto>.NewConfig();
+        // .Map(dest => dest.Id, source=>source.Id)
         
 
         TypeAdapterConfig<Product, ProductDto>.NewConfig()

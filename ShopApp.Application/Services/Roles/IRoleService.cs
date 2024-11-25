@@ -10,11 +10,13 @@ public interface IRoleService
 
     Task<RoleDto> GetRoleById(Guid roleId);
 
-    Task<List<RoleDto>> GetRolesByUserId(Guid userId);
+    // Task<List<RoleDto>> GetRolesByUserId(Guid userId);
 
     Task CreateRole(CreateRoleDto roleDto);
     Task UpdateRole(RoleDto roleDto);
 
-    Task DeleteRole(Guid RoleId);
+    Task DeleteRole(Guid id);
+
+    Task<bool> IsExists(Guid id);
 
 }
