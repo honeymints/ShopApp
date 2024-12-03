@@ -69,6 +69,7 @@ public class AuthenticationController : ControllerBase
 
         return Ok(response);
     }
+    
     [HttpPost("logout")]
     public IActionResult Logout()
     {

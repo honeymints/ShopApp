@@ -11,16 +11,13 @@ public class AuthenticationService : IAuthenticationService
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IUserRepository _userRepository;
 
-    private readonly ILoginUserRepository _loginUserRepository;
-
     private readonly IRolePermissionRepository _rolePermissionRepo;
     public AuthenticationService(ITokenGenerator tokenGenerator,
-     IUserRepository userRepository, ILoginUserRepository loginUserRepository,
+     IUserRepository userRepository,
      IRolePermissionRepository rolePermissionRepository)
     {
         _tokenGenerator = tokenGenerator;
         _userRepository = userRepository;
-        _loginUserRepository = loginUserRepository;
         _rolePermissionRepo = rolePermissionRepository;
     }
 

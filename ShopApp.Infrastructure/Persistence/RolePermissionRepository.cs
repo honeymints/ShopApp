@@ -8,10 +8,7 @@ namespace ShopApp.Infrastructure.Persistence;
 
 public class RolePermissionRepository : BaseRepository<RolePermission>, IRolePermissionRepository
 {
-    public RolePermissionRepository(AppDbContext context) : base(context)
-    {
-
-    }
+    public RolePermissionRepository(AppDbContext context) : base(context) { }
 
     public async Task<PermissionsClaim> GetPermissionClaimsByUserAsync(Guid userId)
     {
@@ -58,27 +55,18 @@ public class RolePermissionRepository : BaseRepository<RolePermission>, IRolePer
         };
     }
 
-    public Task GetRolePermissionsAsync()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task GetRolesAsync()
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<bool> IsRoleExistsWithSuchPermission(Guid roleId, Guid permissionId)
     {
         return await _context.RolePermissions
-        .AnyAsync(x => x.PermissionActionId == permissionId
-        && x.RoleId == roleId);
+        .AnyAsync(x =>
+        x.PermissionActionId.Equals(permissionId)
+        && x.RoleId.Equals(roleId));
     }
 
     public async Task<Guid?[]> FindPermissionsByRoleId(Guid roleId)
     {
         return await _context.RolePermissions
-        .Where(x => x.RoleId == roleId)
+        .Where(x => x.RoleId.Equals(roleId))
         .Select(x => x.PermissionActionId)
         .ToArrayAsync();
     }

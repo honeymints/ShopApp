@@ -21,7 +21,6 @@ public class RoleController : ControllerBase
         _rolePermissionService = rolePermissionService;
     }
 
-
     [HttpPost("create")]
     public async Task<IActionResult> Create(CreateRoleRequest createRoleRequest)
     {
@@ -52,16 +51,22 @@ public class RoleController : ControllerBase
         return Ok(role);
     }
 
-    [HttpPut]
+    [HttpPut("assign-permissions")]
     public async Task<IActionResult> AssignPermissions(RolePermissionInputRequest rolePermissionInputRequest)
     {
-        var permissionsToRoleDto = new PermissionsToRoleDto
-        {
-            RoleId = rolePermissionInputRequest.roleId,
-            PermissionActionIds = rolePermissionInputRequest.permissionActionIds
-        };
+        await _rolePermissionService.AssignPermissionsToRole(
+            rolePermissionInputRequest.roleId,
+            rolePermissionInputRequest.permissionActionIds);
+        return Ok();
+    }
 
-        await _rolePermissionService.AssignPermissionsToRole(permissionsToRoleDto);
+    
+    [HttpPut("unassign-permissions")]
+    public async Task<IActionResult> UnAssignPermissions(RolePermissionInputRequest rolePermissionInputRequest)
+    {
+        await _rolePermissionService.UnAssignPermissionsFromRole(
+            rolePermissionInputRequest.roleId,
+            rolePermissionInputRequest.permissionActionIds);
 
         return Ok();
     }

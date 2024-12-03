@@ -8,6 +8,8 @@ public interface IPermissionActionRepository
 {
 
     Task<IReadOnlyCollection<PermissionAction>> GetAll();
+
+    Task<PermissionAction?> FindById(Guid id);
     Task SaveAsync();
     Task InsertAsync(PermissionAction permissionAction);
     

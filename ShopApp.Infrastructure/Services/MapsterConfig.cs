@@ -2,6 +2,7 @@ using Mapster;
 using ShopApp.Application.DTOs;
 using ShopApp.Application.DTOs.Product;
 using ShopApp.Application.DTOs.Role;
+using ShopApp.Application.DTOs.RolePermissions;
 using ShopApp.Application.DTOs.User;
 using ShopApp.Domain.Entities;
 
@@ -21,6 +22,11 @@ public class MapsterConfig
         TypeAdapterConfig<Role, RoleDto>.NewConfig();
         // .Map(dest => dest.Id, source=>source.Id)
         
+        TypeAdapterConfig<PermissionAction, PermissionActionDto>.NewConfig();
+        // .Map(dest=> dest.Id, source=> source.Id)
+        // .Map(dest=> dest.Description, source=> source.Description)
+        // .Map(dest=> dest.Name, source=> source.Name)
+        // .Map(dest=> dest.Value, source=> source.Value)
 
         TypeAdapterConfig<Product, ProductDto>.NewConfig()
         .Map(dest=> dest.Id, source=> source.Id)

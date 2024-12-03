@@ -5,9 +5,7 @@ namespace ShopApp.Application.Services;
 
 public interface IRolePermissionService
 {
+    Task AssignPermissionsToRole(Guid RoleId, Guid[] PermissionActionIds);
 
-    Task AssignPermissionsToRole(PermissionsToRoleDto assignPermissionsToRoleDto);
-
-    Task UnAssignPermissionsFromRole(PermissionsToRoleDto assignPermissionsToRoleDto);
-    
+    Task UnAssignPermissionsFromRole(Guid RoleId, Guid[] PermissionActionIds);
 }

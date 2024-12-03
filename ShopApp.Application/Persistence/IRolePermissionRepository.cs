@@ -4,7 +4,6 @@ namespace ShopApp.Application.Persistence;
 
 public interface IRolePermissionRepository {
 
-   Task<RolePermission?> FindById(Guid userId);
     Task<PermissionsClaim> GetPermissionClaimsByUserAsync(Guid userId);
 
     Task SaveAsync();

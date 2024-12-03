@@ -12,22 +12,16 @@ public class RoleService : IRoleService
 
     private readonly IMapper _mapper;
     private readonly IRoleRepository _roleRepository;
-
-    private readonly IUserRepository _userRepository;
-
     private readonly IRolePermissionRepository _rolePermissionRepository;
 
-    private readonly IPermissionActionRepository _permissionActionRepository;
 
 
-    public RoleService(IRoleRepository roleRepository, IUserRepository userRepository,
-     IMapper mapper, IRolePermissionRepository rolePermissionRepository,
-     IPermissionActionRepository permissionActionRepository)
+    public RoleService(IRoleRepository roleRepository,
+     IMapper mapper, IRolePermissionRepository rolePermissionRepository)
     {
         _roleRepository = roleRepository;
-        _userRepository = userRepository;
         _rolePermissionRepository = rolePermissionRepository;
-        _permissionActionRepository = permissionActionRepository;
+
         _mapper = mapper;
     }
 
@@ -68,10 +62,13 @@ public class RoleService : IRoleService
             Description = x.Description,
             Name = x.Name,
             PermissionActions = x.RolePermissions
-            .Where(r=>r.RoleId==x.Id)
-            .Select(y=> new PermissionActionDto {
+            .Where(r => r.RoleId == x.Id)
+            .Select(y => new PermissionActionDto
+            {
                 Id = y.PermissionAction.Id,
-                Value = y.PermissionAction.Value
+                Value = y.PermissionAction.Value,
+                Name = y.PermissionAction.Name,
+                Description = y.PermissionAction.Description
             }).ToList(),
         }).ToList();
 
@@ -93,21 +90,11 @@ public class RoleService : IRoleService
 
     public async Task<bool> IsExists(Guid id)
     {
-       return await _rolePermissionRepository.IsExists(id);
+        return await _rolePermissionRepository.IsExists(id);
     }
-
-    // public async Task<List<RoleDto>> GetRolesByUserId(Guid userId)
-    // {
-    //     if (!await _userRepository.IsExists(userId))
-    //     {
-    //         throw new KeyNotFoundException("User was not found!");
-    //     }
-
-    //     // var usersRole = _roleRepository.
-    // }
 
     public async Task UpdateRole(RoleDto roleDto)
     {
-        throw new NotImplementedException();
+
     }
 }

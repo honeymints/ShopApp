@@ -8,7 +8,7 @@ namespace ShopApp.Api.Controllers;
 
 [ApiController]
 [Route("/api/product")]
-public class ProductController : Controller
+public class ProductController : ControllerBase
 {
     private readonly ILogger<ProductController> _logger;
     private readonly IProductService _productService;
@@ -20,36 +20,19 @@ public class ProductController : Controller
     }
 
     [Authorize]
-    [HttpGet("all")]
+    [HttpGet("get-all")]
     public async Task<IActionResult> GetAll()
     {
         var productResult = await _productService.GetProducts();
 
-        var productDto = productResult
-        .Select(p => new ProductDto
-        {
-            Id = p.Id,
-            Name = p.Name,
-            Description = p.Description,
-            Price = p.Price
-        }).ToList();
-
-        return Ok(productDto);
+        return Ok(productResult);
     }
 
     [Authorize(AuthenticationSchemes = "Bearer")]
-    [HttpGet("{id}")]
+    [HttpGet("get/{id}")]
     public async Task<IActionResult> Get(Guid id)
     {
-        var product = await _productService.GetProductById(id);
-
-        var productDto = new ProductDto
-        {
-            Id = product.Id,
-            Description = product.Description,
-            Price = product.Price,
-            Name = product.Name
-        };
+        var productDto = await _productService.GetProductById(id);
 
         return Ok(productDto);
     }
@@ -68,6 +51,4 @@ public class ProductController : Controller
 
         return Created();
     }
-
-    
 }
