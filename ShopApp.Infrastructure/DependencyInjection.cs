@@ -13,22 +13,27 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Mapster;
+using ShopApp.Application.Attributes;
+using Microsoft.AspNetCore.Authorization;
+using ShopApp.Infrastructure.Handlers;
+using ShopApp.Application.AuthUtils;
 
 namespace ShopApp.Infrastructure;
 
 public static class DependencyInjection
 {
-
     public static IServiceCollection AddInfrastructure(this IServiceCollection services,
         ConfigurationManager configurationManager)
     {
         services.Configure<JwtSettings>(configurationManager.GetSection(JwtSettings.SectionName));
-
+        services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+        services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
         _ = services.AddAuthentication(a =>
         {
             a.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             a.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         })
+
         .AddJwtBearer(x =>
         {
             x.RequireHttpsMetadata = false;
@@ -40,7 +45,6 @@ public static class DependencyInjection
                 ValidateAudience = false
             };
         });
-
         services.AddSwaggerGen(c =>
             {
                 var securityScheme = new OpenApiSecurityScheme
@@ -73,6 +77,7 @@ public static class DependencyInjection
                 c.AddSecurityRequirement(securityRequirement);
             }
             );
+
         services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(configurationManager.GetConnectionString("DefaultConnection")));
         services.AddMapster();

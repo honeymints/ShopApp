@@ -32,11 +32,11 @@ public class UserRoleService : IUserRoleService
         {
            await CheckIfExists(userRole);
 
-            if (!await _userRoleRepository.IsUserExistsWithSuchRoles(
+            if (await _userRoleRepository.IsUserExistsWithSuchRoles(
                   userRole.UserId,
                   userRole.RoleId))
             {
-                throw new Exception("There are no such roles that assigned to such user");
+                throw new Exception("There are already roles that assigned to such user");
             }
         }
 

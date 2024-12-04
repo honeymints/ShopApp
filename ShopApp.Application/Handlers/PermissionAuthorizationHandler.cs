@@ -1,13 +1,11 @@
 using System.Security.Claims;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
-using Newtonsoft.Json;
+using ShopApp.Application.Attributes;
 using ShopApp.Domain.Entities;
 using ShopApp.Domain.Enums;
-using ShopApp.Api.Attributes;
 
 namespace ShopApp.Infrastructure.Handlers;
-
-
 
 public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {
@@ -16,7 +14,7 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
 
         var user = context.User;
 
-        if (user == null || user.Identity.IsAuthenticated)
+        if (user == null || !user.Identity.IsAuthenticated)
         {
             context.Fail();
 
@@ -39,17 +37,16 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
     private bool CheckUserPermission(ClaimsPrincipal user, PermissionActionEnum permissionActionEnum)
     {
         // check if user has permission
-        var userPermission = user.FindFirst("Permssions")?.Value;
+        var userPermission = user.FindFirst("Permissions")?.Value;
 
         if (string.IsNullOrEmpty(userPermission))
         {
             return false;
         }
 
-        var permissions = JsonConvert.DeserializeObject<PermissionsClaim>(userPermission);
+        var permissions = JsonSerializer.Deserialize<PermissionsClaim>(userPermission);
         //
         return HasRequiredPermissions(permissionActionEnum, permissions);
-
 
     }
 

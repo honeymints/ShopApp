@@ -5,7 +5,7 @@ namespace ShopApp.Application.Persistence;
 
 public interface IRoleRepository
 {
-    Task<Role?> FindById(Guid id);
+    Task<Role?> Get(Guid id);
 
     Task<IReadOnlyCollection<Role>> GetAll();
     Task SaveAsync();

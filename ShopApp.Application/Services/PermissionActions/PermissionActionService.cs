@@ -1,6 +1,6 @@
 using Mapster;
 using MapsterMapper;
-using ShopApp.Application.DTOs.RolePermissions;
+using ShopApp.Application.DTOs.PermissionAction;
 using ShopApp.Application.Persistence;
 using ShopApp.Domain.Entities;
 using ShopApp.Domain.Enums;
@@ -45,7 +45,7 @@ public class PermissionActionService : IPermissionActionService
     {
         await CheckIfExists(id);
 
-        var permissionAction = await _permissionActionRepository.FindById(id);
+        var permissionAction = await _permissionActionRepository.Get(id);
 
         var permissionActionDto = _mapper.Map<PermissionActionDto>(permissionAction);
 

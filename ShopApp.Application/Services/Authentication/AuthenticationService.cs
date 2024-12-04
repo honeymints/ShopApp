@@ -65,7 +65,6 @@ public class AuthenticationService : IAuthenticationService
         await _userRepository.InsertAsync(user);
         await _userRepository.SaveAsync();
 
-
         var permissionClaim = await _rolePermissionRepo.GetPermissionClaimsByUserAsync(user.Id);
         var token = await _tokenGenerator.GenerateToken(user, permissionClaim);
 

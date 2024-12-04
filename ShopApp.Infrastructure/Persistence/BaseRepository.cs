@@ -31,7 +31,7 @@ public abstract class BaseRepository<T> where T : BaseEntity
         await _context.Set<T>().AddRangeAsync(entities);
     }
     
-    public virtual async Task<T?> FindById(Guid id)
+    public virtual async Task<T?> Get(Guid id)
     {
         var entity = await _context.FindAsync<T>(id);
         return entity;
@@ -39,7 +39,7 @@ public abstract class BaseRepository<T> where T : BaseEntity
 
     public virtual async Task DeleteAsync(Guid id)
     {
-        var entity =  await FindById(id);
+        var entity =  await Get(id);
         _context.Set<T>().Remove(entity);
     }
     

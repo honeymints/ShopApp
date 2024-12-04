@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopApp.Application.Services.Products;
-using ShopApp.Contracts.Authentication;
-using ShopApp.Application.DTOs.Product;
+using ShopApp.Domain.Enums;
+using ShopApp.Application.Attributes;
+using ShopApp.Contracts.Product;
 
 namespace ShopApp.Api.Controllers;
 
@@ -29,6 +30,7 @@ public class ProductController : ControllerBase
     }
 
     [Authorize(AuthenticationSchemes = "Bearer")]
+    
     [HttpGet("get/{id}")]
     public async Task<IActionResult> Get(Guid id)
     {
@@ -38,17 +40,40 @@ public class ProductController : ControllerBase
     }
 
     [Authorize(AuthenticationSchemes = "Bearer")]
-    [HttpPost]
-    public async Task<IActionResult> Add(CreateProductRequest createProductRequest)
+    [HttpPost("create")]
+    [Permission(PermissionActionEnum.CreateProduct)]
+    public async Task<IActionResult> Create(CreateProductRequest createProductRequest)
     {
-        var productDto = new ProductDto()
-        {
-            Name = createProductRequest.Name,
-            Description = createProductRequest.Description,
-            Price = createProductRequest.Price,
-        };
-        await _productService.AddProduct(productDto);
+        await _productService.AddProduct(
+            createProductRequest.Name,
+            createProductRequest.Description,
+            createProductRequest.Price);
 
         return Created();
+    }
+
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [HttpDelete("delete/{id}")]
+    [Permission(PermissionActionEnum.DeleteProduct)]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _productService.DeleteProduct(id);
+
+        return Accepted();
+    }
+
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [HttpPut("update")]
+    [Permission(PermissionActionEnum.UpdateProduct)]
+    public async Task<IActionResult> Update(UpdateProductRequest updateProductRequest)
+    {
+        await _productService.UpdateProduct(
+            updateProductRequest.Id,
+            updateProductRequest.Name,
+            updateProductRequest.Description,
+            updateProductRequest.Price,
+            updateProductRequest.ProductCategoryIds);
+
+        return Ok();
     }
 }

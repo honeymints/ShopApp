@@ -1,8 +1,7 @@
 using Mapster;
-using ShopApp.Application.DTOs;
+using ShopApp.Application.DTOs.PermissionAction;
 using ShopApp.Application.DTOs.Product;
 using ShopApp.Application.DTOs.Role;
-using ShopApp.Application.DTOs.RolePermissions;
 using ShopApp.Application.DTOs.User;
 using ShopApp.Domain.Entities;
 

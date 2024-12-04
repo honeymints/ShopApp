@@ -1,5 +1,5 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShopApp.Application.Services;
 using ShopApp.Application.Services.PermissionActions;
 using ShopApp.Contracts.PermissionAction;
 
@@ -23,6 +23,7 @@ public class PermissionController : ControllerBase
         return Ok(permissionActionDtos);
     }
 
+    [Authorize]
     [HttpGet("get/{id}")]
     public async Task<IActionResult> Get(Guid id)
     {
@@ -30,7 +31,8 @@ public class PermissionController : ControllerBase
 
         return Ok(permissionActionDto);
     }
-
+    
+    [Authorize]
     [HttpPost("create")]
     public async Task<IActionResult> Insert(CreatePermissionActionRequest createPermissionActionRequest)
     {
@@ -41,6 +43,16 @@ public class PermissionController : ControllerBase
         return Created();
     }
 
+    [Authorize]
+    [HttpPut("update")]
+    public async Task<IActionResult> Update(Guid id)
+    {
+        await _permissionActionService.DeletePermissionAction(id);
+
+        return Ok();
+    }
+
+    [Authorize]
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {

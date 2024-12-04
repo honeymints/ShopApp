@@ -1,4 +1,3 @@
-using MapsterMapper;
 using ShopApp.Application.DTOs.RolePermissions;
 using ShopApp.Application.Persistence;
 using ShopApp.Domain.Entities;

@@ -1,4 +1,4 @@
-namespace ShopApp.Contracts.Authentication;
+namespace ShopApp.Contracts.Product;
 
 public record CreateProductRequest
 (

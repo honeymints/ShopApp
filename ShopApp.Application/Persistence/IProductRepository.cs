@@ -4,7 +4,7 @@ namespace ShopApp.Application.Persistence;
 
 public interface IProductRepository
 {
-    Task<Product?> FindById(Guid itemId);
+    Task<Product?> Get(Guid itemId);
 
     Task<IEnumerable<Product>> GetItemsByCategories(Guid categoryIdId);
     

@@ -4,7 +4,7 @@ namespace ShopApp.Application.Persistence;
 
 public interface IUserRepository
 {
-    Task<User?> FindById(Guid userId);
+    Task<User?> Get(Guid userId);
 
     User? GetUserByEmail(string email);
 

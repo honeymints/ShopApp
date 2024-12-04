@@ -4,16 +4,23 @@ namespace ShopApp.Domain.Enums;
 
 public enum PermissionActionEnum
 {
-    CreateProduct = 1,
+    ReadRole = 1,
+    CreateRole,
+    UpdateRole,
+    DeleteRole,
+    
     ReadProduct,
-    DeleteProduct,
+    CreateProduct,
     UpdateProduct,
+    DeleteProduct,
 
     ReadCategory,
-    Createcategory,
+    CreateCategory,
     UpdateCategory,
     DeleteCategory,
 
-    
+
+
+
 
 }

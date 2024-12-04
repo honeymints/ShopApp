@@ -5,7 +5,6 @@ namespace ShopApp.Domain.Entities;
 
 public class PermissionsClaim
 {
-    public Guid Id { get; set; }
 
     // public Guid PermissionActionId { get; set; }
 

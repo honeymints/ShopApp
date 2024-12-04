@@ -5,7 +5,7 @@ namespace ShopApp.Application.Persistence;
 
 public interface IUserRoleRepository
 {  
-    Task<UserRole?> FindById(Guid userId);
+    Task<UserRole?> Get(Guid userId);
 
     Task SaveAsync();
     Task InsertAsync(UserRole userRoles);

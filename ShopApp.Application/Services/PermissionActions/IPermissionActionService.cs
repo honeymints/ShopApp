@@ -1,4 +1,5 @@
-using ShopApp.Application.DTOs.RolePermissions;
+
+using ShopApp.Application.DTOs.PermissionAction;
 
 namespace ShopApp.Application.Services.PermissionActions;
 

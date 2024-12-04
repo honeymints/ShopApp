@@ -1,6 +1,6 @@
 using ShopApp.Domain.Enums;
 
-namespace ShopApp.Application.DTOs.RolePermissions;
+namespace ShopApp.Application.DTOs.PermissionAction;
 
 public class PermissionActionDto
 {

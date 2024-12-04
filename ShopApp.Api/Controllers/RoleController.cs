@@ -1,13 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShopApp.Application.Attributes;
 using ShopApp.Application.DTOs.Role;
-using ShopApp.Application.DTOs.RolePermissions;
 using ShopApp.Application.Services;
 using ShopApp.Contracts.Role;
 using ShopApp.Contracts.RolePermission;
+using ShopApp.Domain.Enums;
 
 namespace ShopApp.Api.Controllers;
 
-
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class RoleController : ControllerBase
@@ -21,6 +23,7 @@ public class RoleController : ControllerBase
         _rolePermissionService = rolePermissionService;
     }
 
+    [Permission(PermissionActionEnum.CreateRole)]
     [HttpPost("create")]
     public async Task<IActionResult> Create(CreateRoleRequest createRoleRequest)
     {
@@ -43,7 +46,7 @@ public class RoleController : ControllerBase
         return Ok(roles);
     }
 
-     [HttpGet("{id}")]
+    [HttpGet("get/{id}")]
     public async Task<IActionResult> Get(Guid id)
     {
         var role = await _roleService.GetRoleById(id);
@@ -51,6 +54,15 @@ public class RoleController : ControllerBase
         return Ok(role);
     }
 
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _roleService.DeleteRole(id);
+
+        return Ok();
+    }
+
+    
     [HttpPut("assign-permissions")]
     public async Task<IActionResult> AssignPermissions(RolePermissionInputRequest rolePermissionInputRequest)
     {
@@ -60,7 +72,6 @@ public class RoleController : ControllerBase
         return Ok();
     }
 
-    
     [HttpPut("unassign-permissions")]
     public async Task<IActionResult> UnAssignPermissions(RolePermissionInputRequest rolePermissionInputRequest)
     {

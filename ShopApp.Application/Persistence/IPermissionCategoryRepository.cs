@@ -5,7 +5,7 @@ namespace ShopApp.Application.Persistence;
 
 public interface IPermissionCategoryRepository {
 
-    Task<PermissionCategory?> FindById(Guid id);
+    Task<PermissionCategory?> Get(Guid id);
 
     Task<IReadOnlyCollection<PermissionCategory>> GetAll();
     Task SaveAsync();

@@ -31,23 +31,61 @@ public class ProductService : IProductService
     {
         if (await _productRepository.IsExists(id))
         {
-            var product = await _productRepository.FindById(id);
+            var product = await _productRepository.Get(id);
             var productDto = _mapper.Map<ProductDto>(product);
             return productDto;
         }
         throw new KeyNotFoundException();
     }
 
-    public async Task AddProduct(ProductDto productDto)
+    public async Task AddProduct(
+        string name,
+        string description,
+        decimal price)
     {
-        var product = _mapper.Map<Product>(productDto);
+
+        var product = new Product
+        {
+            Name = name,
+            Price = price,
+            Description = description
+        };
+
         await _productRepository.InsertAsync(product);
         await _productRepository.SaveAsync();
     }
 
-    public Task AddCategoryToProduct(CategoryDto categoryDto)
+    public async Task AssignCategoryToProduct(CategoryDto categoryDto)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task DeleteProduct(Guid id)
+    {
+        await CheckIfExists(id);
+
+        await _productRepository.DeleteAsync(id);
+        await _productRepository.SaveAsync();
+    }
+
+    public async Task UpdateProduct(Guid id, string name, string description, decimal price, int[]? productCategoryIds)
+    {
+        await CheckIfExists(id);
+
+        var product = await _productRepository.Get(id);
+
+        product.Name = name;
+        product.Description = description;
+        product.Price = price;
+        
+    }
+
+    public async Task CheckIfExists(Guid id)
+    {
+        if (!await _productRepository.IsExists(id))
+        {
+            throw new KeyNotFoundException("such product doesn't exist!");
+        }
     }
 
 }

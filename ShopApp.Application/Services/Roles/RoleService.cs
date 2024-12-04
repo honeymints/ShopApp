@@ -1,6 +1,6 @@
 using MapsterMapper;
+using ShopApp.Application.DTOs.PermissionAction;
 using ShopApp.Application.DTOs.Role;
-using ShopApp.Application.DTOs.RolePermissions;
 using ShopApp.Application.Persistence;
 using ShopApp.Domain.Entities;
 
@@ -76,7 +76,7 @@ public class RoleService : IRoleService
 
     public async Task<RoleDto> GetRoleById(Guid roleId)
     {
-        var role = await _roleRepository.FindById(roleId);
+        var role = await _roleRepository.Get(roleId);
 
         if (role is null)
         {
