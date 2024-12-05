@@ -11,6 +11,10 @@ public interface ICategoryRepository
 
     Task UpdateProductCategory(Category category, Product product);
     Task<IReadOnlyCollection<Category>> GetAll();
+
+    Task<Category?> Get(Guid id);
+
+    Task DeleteRangeAsync(Guid[] ids);
     Task SaveAsync();
     Task InsertAsync(Category category);
     

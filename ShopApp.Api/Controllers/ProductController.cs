@@ -71,8 +71,7 @@ public class ProductController : ControllerBase
             updateProductRequest.Id,
             updateProductRequest.Name,
             updateProductRequest.Description,
-            updateProductRequest.Price,
-            updateProductRequest.ProductCategoryIds);
+            updateProductRequest.Price);
 
         return Ok();
     }

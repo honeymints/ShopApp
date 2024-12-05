@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using ShopApp.Api.Filters;
 
 namespace ShopApp.Api.Controllers;
 

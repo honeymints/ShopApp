@@ -15,6 +15,8 @@ public interface IUserRepository
     
     Task InsertRangeAsync(ICollection<User> user);
     Task DeleteAsync(Guid userId);
+
+    Task DeleteRangeAsync(Guid[] ids);
     
     Task<bool> IsExists(Guid itemId);
     Task UpdateAsync(User user);

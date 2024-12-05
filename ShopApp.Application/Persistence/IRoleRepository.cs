@@ -13,6 +13,8 @@ public interface IRoleRepository
     
     Task InsertRangeAsync(ICollection<Role> roles);
     Task DeleteAsync(Guid id);
+
+    Task DeleteRangeAsync(Guid[] ids);
     
     Task<bool> IsExists(Guid id);
 

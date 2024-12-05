@@ -11,8 +11,10 @@ public interface IPermissionCategoryRepository {
     Task SaveAsync();
     Task InsertAsync(PermissionCategory category);
     
+ 
     Task InsertRangeAsync(ICollection<PermissionCategory> categories);
     Task DeleteAsync(Guid id);
+    Task DeleteRangeAsync(Guid[] ids);
     
     Task<bool> IsExists(Guid id);
     Task UpdateAsync(PermissionCategory category);

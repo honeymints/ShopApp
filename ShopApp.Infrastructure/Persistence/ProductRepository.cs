@@ -7,10 +7,8 @@ namespace ShopApp.Infrastructure.Persistence;
 
 public class ProductRepository : BaseRepository<Product>, IProductRepository
 {
-    public ProductRepository(AppDbContext context) : base(context)
-    {
-    }
-    
+    public ProductRepository(AppDbContext context) : base(context) { }
+
     public async Task<IEnumerable<Product>> GetItemsByCategories(Guid categoryId)
     {
         var items = await _context.Products

@@ -6,7 +6,5 @@ namespace ShopApp.Infrastructure.Persistence;
 
 public class PermissionCategoryRepository : BaseRepository<PermissionCategory>, IPermissionCategoryRepository
 {
-    public PermissionCategoryRepository(AppDbContext context) : base(context)
-    {
-    }
+    public PermissionCategoryRepository(AppDbContext context) : base(context) { }
 }

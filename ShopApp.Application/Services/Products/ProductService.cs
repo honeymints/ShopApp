@@ -10,7 +10,6 @@ public class ProductService : IProductService
 {
     private readonly IMapper _mapper;
     private readonly IProductRepository _productRepository;
-    // private readonly ICategoryRepository _categoryRepository;
 
     public ProductService(IProductRepository productRepository, IMapper mapper)
     {
@@ -29,13 +28,15 @@ public class ProductService : IProductService
 
     public async Task<ProductDto?> GetProductById(Guid id)
     {
-        if (await _productRepository.IsExists(id))
+        if (!await _productRepository.IsExists(id))
         {
-            var product = await _productRepository.Get(id);
-            var productDto = _mapper.Map<ProductDto>(product);
-            return productDto;
+            throw new KeyNotFoundException();
         }
-        throw new KeyNotFoundException();
+        
+        var product = await _productRepository.Get(id);
+        var productDto = _mapper.Map<ProductDto>(product);
+        return productDto;
+
     }
 
     public async Task AddProduct(
@@ -55,10 +56,10 @@ public class ProductService : IProductService
         await _productRepository.SaveAsync();
     }
 
-    public async Task AssignCategoryToProduct(CategoryDto categoryDto)
-    {
-        throw new NotImplementedException();
-    }
+    // public async Task AssignCategoryToProduct(CategoryDto categoryDto)
+    // {
+    //     throw new NotImplementedException();
+    // }
 
     public async Task DeleteProduct(Guid id)
     {
@@ -68,7 +69,7 @@ public class ProductService : IProductService
         await _productRepository.SaveAsync();
     }
 
-    public async Task UpdateProduct(Guid id, string name, string description, decimal price, int[]? productCategoryIds)
+    public async Task UpdateProduct(Guid id, string name, string description, decimal price)
     {
         await CheckIfExists(id);
 
@@ -78,6 +79,8 @@ public class ProductService : IProductService
         product.Description = description;
         product.Price = price;
         
+        await _productRepository.UpdateAsync(product);
+        await _productRepository.SaveAsync();
     }
 
     public async Task CheckIfExists(Guid id)

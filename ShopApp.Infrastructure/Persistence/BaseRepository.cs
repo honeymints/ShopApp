@@ -26,11 +26,11 @@ public abstract class BaseRepository<T> where T : BaseEntity
 
     public virtual async Task InsertRangeAsync(ICollection<T> entities)
     {
-        entities.ToList().ForEach(e=>e.CreateDate=DateTime.UtcNow);
+        entities.ToList().ForEach(e => e.CreateDate = DateTime.UtcNow);
 
         await _context.Set<T>().AddRangeAsync(entities);
     }
-    
+
     public virtual async Task<T?> Get(Guid id)
     {
         var entity = await _context.FindAsync<T>(id);
@@ -39,10 +39,19 @@ public abstract class BaseRepository<T> where T : BaseEntity
 
     public virtual async Task DeleteAsync(Guid id)
     {
-        var entity =  await Get(id);
+        var entity = await Get(id);
         _context.Set<T>().Remove(entity);
     }
-    
+
+    public virtual async Task DeleteRangeAsync(Guid[] ids)
+    {
+        var entities = await GetAll();
+
+        entities = entities.Where(x => ids.Contains(x.Id)).ToList();
+
+        _context.Set<T>().RemoveRange(entities);
+    }
+
     public virtual async Task UpdateAsync(T entity)
     {
         entity.UpdateDate = DateTime.UtcNow;

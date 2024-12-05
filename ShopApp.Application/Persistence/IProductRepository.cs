@@ -19,6 +19,8 @@ public interface IProductRepository
     Task InsertRangeAsync(ICollection<Product> product);
 
     Task DeleteAsync(Guid itemId);
+
+    Task DeleteRangeAsync(Guid[] ids);
     
     Task UpdateAsync(Product product);
     

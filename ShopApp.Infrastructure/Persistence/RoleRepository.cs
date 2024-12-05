@@ -7,9 +7,7 @@ namespace ShopApp.Infrastructure.Persistence;
 
 public class RoleRepository : BaseRepository<Role>, IRoleRepository
 {
-    public RoleRepository(AppDbContext context) : base(context)
-    {
-    }
+    public RoleRepository(AppDbContext context) : base(context) { }
 
     public async Task<bool> IsExists(string Name)
     {
@@ -21,7 +19,7 @@ public class RoleRepository : BaseRepository<Role>, IRoleRepository
     {
         return await _context.Roles
         .Include(x => x.RolePermissions)
-            .ThenInclude(y=>y.PermissionAction)
+            .ThenInclude(y => y.PermissionAction)
         .AsNoTracking()
         .ToListAsync();
     }

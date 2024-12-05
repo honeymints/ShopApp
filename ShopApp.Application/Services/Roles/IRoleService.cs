@@ -5,7 +5,6 @@ namespace ShopApp.Application.Services;
 
 public interface IRoleService
 {
-
     Task<List<RoleDto>> GetAllRoles();
 
     Task<RoleDto> GetRoleById(Guid roleId);

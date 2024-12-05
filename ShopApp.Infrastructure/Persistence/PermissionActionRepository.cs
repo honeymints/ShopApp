@@ -6,7 +6,5 @@ namespace ShopApp.Infrastructure.Persistence;
 
 public class PermissionActionRepository : BaseRepository<PermissionAction>, IPermissionActionRepository
 {
-    public PermissionActionRepository(AppDbContext context) : base(context)
-    {
-    }
+    public PermissionActionRepository(AppDbContext context) : base(context) { }
 }

@@ -11,10 +11,12 @@ public interface IRolePermissionRepository {
     
     Task InsertRangeAsync(ICollection<RolePermission> rolePermissions);
     Task DeleteAsync(Guid rolePermissionId);
+
+    Task DeleteRangeAsync(Guid[] ids);
     
     Task<bool> IsExists(Guid itemId);
 
     Task<bool> IsRoleExistsWithSuchPermission(Guid roleId, Guid permissionId);
 
-    public Task<Guid?[]> FindPermissionsByRoleId(Guid roleId);
+    Task<Guid?[]> FindPermissionsByRoleId(Guid roleId);
 }

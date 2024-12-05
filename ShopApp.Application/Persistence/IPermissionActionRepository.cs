@@ -15,6 +15,7 @@ public interface IPermissionActionRepository
     
     Task InsertRangeAsync(ICollection<PermissionAction> permissionAction);
     Task DeleteAsync(Guid permissionActionId);
+    Task DeleteRangeAsync(Guid[] ids);
     
     Task<bool> IsExists(Guid itemId);
     Task UpdateAsync(PermissionAction permissionAction);

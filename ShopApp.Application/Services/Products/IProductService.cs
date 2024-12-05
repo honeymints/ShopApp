@@ -14,7 +14,6 @@ public interface IProductService
         string description,
         decimal price);
 
-    Task AssignCategoryToProduct(CategoryDto categoryDto);
 
     Task DeleteProduct(Guid id);
 
@@ -22,8 +21,7 @@ public interface IProductService
         Guid id, 
         string name,
         string description,
-        decimal price,
-        int[]? productCategoryIds);
+        decimal price);
 
     Task CheckIfExists(Guid id);
 }
