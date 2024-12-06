@@ -5,11 +5,6 @@ namespace ShopApp.Application.Persistence;
 
 public interface ICategoryRepository
 {
-    Task AddCategoryToProduct(Category category, Product product);
-
-    Task DeleteCategoryFromProduct(Guid categoryId, Guid productId);
-
-    Task UpdateProductCategory(Category category, Product product);
     Task<IReadOnlyCollection<Category>> GetAll();
 
     Task<Category?> Get(Guid id);
@@ -22,5 +17,8 @@ public interface ICategoryRepository
     Task DeleteAsync(Guid categoryId);
     
     Task<bool> IsExists(Guid itemId);
+
+    Task<bool> IsExists(string name);
+
     Task UpdateAsync(Category category);
 }

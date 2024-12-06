@@ -63,12 +63,13 @@ public class ProductController : ControllerBase
     }
 
     [Authorize(AuthenticationSchemes = "Bearer")]
-    [HttpPut("update")]
+    [HttpPut("update/{id}")]
     [Permission(PermissionActionEnum.UpdateProduct)]
-    public async Task<IActionResult> Update(UpdateProductRequest updateProductRequest)
+    public async Task<IActionResult> Update(Guid Id, UpdateProductRequest updateProductRequest)
     {
+        
         await _productService.UpdateProduct(
-            updateProductRequest.Id,
+            Id,
             updateProductRequest.Name,
             updateProductRequest.Description,
             updateProductRequest.Price);

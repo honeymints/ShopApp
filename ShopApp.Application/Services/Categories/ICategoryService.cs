@@ -18,7 +18,7 @@ public interface ICategoryService
 
     Task DeleteCategory(Guid id);
 
-    Task CheckIfExists(string name);
+   // Task CheckIfExists(string name);
 
     Task CheckIfExists(Guid id);
 

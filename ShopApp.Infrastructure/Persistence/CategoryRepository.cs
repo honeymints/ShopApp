@@ -11,24 +11,7 @@ public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
 {
     public CategoryRepository(AppDbContext context) : base(context) { }
 
-    public async Task AddCategoryToProduct(Category category, Product product)
-    {
-        await _context.ProductCategories.AddAsync(new ProductCategory
-        {
-            Category = category,
-            Product = product,
-        });
-    }
-
-    public async Task DeleteCategoryFromProduct(Guid categoryId, Guid productId)
-    {
-        var productCategory = _context.ProductCategories
-        .Where(pc => pc.CategoryId == categoryId && pc.ProductId == productId)
-        .FirstOrDefaultAsync();
-
-        _context.Remove(productCategory);
-    }
-
+    
     public async Task UpdateProductCategory(Category category, Product product)
     {
         var productCategory = await _context.ProductCategories
@@ -37,4 +20,11 @@ public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
 
         _context.ProductCategories.Update(productCategory);
     }
+
+    public async Task<bool> IsExists(string name)
+    {
+        return await _context.Categories
+                             .AnyAsync(x => x.Name.ToLower().Equals(name.ToLower()));
+    }
+
 }

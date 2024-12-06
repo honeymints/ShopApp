@@ -14,11 +14,6 @@ public class CategoryService : ICategoryService
         _categoryRepository = categoryRepository;
     }
 
-    public Task CheckIfExists(string name)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task CheckIfExists(Guid id)
     {
         if (!await _categoryRepository.IsExists(id))
@@ -29,9 +24,14 @@ public class CategoryService : ICategoryService
 
     public async Task CreateCategory(string name, string description)
     {
+        if (await _categoryRepository.IsExists(name))
+        {
+            throw new Exception("such category already exists!");
+        }
+
         var category = new Category
         {
-            Name = name,
+            Name = name.ToUpper(),
             Description = description
         };
 
@@ -76,6 +76,6 @@ public class CategoryService : ICategoryService
 
     public async Task UpdateCategory(CategoryDto categoryDtoDto)
     {
-       throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 }

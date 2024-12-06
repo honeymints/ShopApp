@@ -43,7 +43,7 @@ public class CategoryController : ControllerBase
 
     [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpPost("create")]
-    [Permission(PermissionActionEnum.CreateProduct)]
+    [Permission(PermissionActionEnum.CreateCategory)]
     public async Task<IActionResult> Create(CreateCategoryRequest createCategoryRequest)
     {
         await _categoryService.CreateCategory(
@@ -55,7 +55,7 @@ public class CategoryController : ControllerBase
 
     [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpDelete("delete/{id}")]
-    [Permission(PermissionActionEnum.DeleteProduct)]
+    [Permission(PermissionActionEnum.DeleteCategory)]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _categoryService.DeleteCategory(id);
