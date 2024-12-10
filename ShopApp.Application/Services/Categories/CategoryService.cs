@@ -53,6 +53,7 @@ public class CategoryService : ICategoryService
             .AsEnumerable()
             .Select(x => new CategoryDto
             {
+                Id =x.Id,
                 Name = x.Name,
                 Description = x.Description,
             })

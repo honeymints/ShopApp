@@ -7,6 +7,8 @@ public interface IPermissionCategoryRepository {
 
     Task<PermissionCategory?> Get(Guid id);
     Task<IReadOnlyCollection<PermissionCategory>> GetAll();
+
+    Task<List<PermissionCategory>> GetAllWithPermissionActions();
     Task InsertAsync(PermissionCategory category);
     Task InsertRangeAsync(ICollection<PermissionCategory> categories);
     Task DeleteAsync(Guid id);

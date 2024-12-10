@@ -28,6 +28,15 @@ public class PermissionCategoryService : IPermissionCategoryService
 
     public async Task CreatePermissionCategory(string name, string? description, int value)
     {
+        if (await _permissionCategoryRepository.IsExists(name))
+        {
+            throw new Exception("such category already exists!");
+        }
+        if (value == 0)
+        {
+            throw new Exception("value cannot be 0!");
+        }
+
         var permissionCategory = new PermissionCategory
         {
             Name = name,
@@ -49,7 +58,7 @@ public class PermissionCategoryService : IPermissionCategoryService
 
     public async Task<IReadOnlyCollection<PermissionCategoryDto>> GetAll()
     {
-        var permissionCategories = await _permissionCategoryRepository.GetAll();
+        var permissionCategories = await _permissionCategoryRepository.GetAllWithPermissionActions();
 
         var permissionCategoryDtos = permissionCategories.AsEnumerable()
                                                          .Select(x => _mapper.Map<PermissionCategoryDto>(x))
